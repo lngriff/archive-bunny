@@ -24,7 +24,8 @@ export async function archiveScript(categories) {
             let prevPage = page.url();
             let subcategories = [];
             for (let category of categories) {
-                subcategories = await page.getByRole('link', { name: category }).all();
+                const additionalTitles = await page.getByRole('link', { name: category }).all();
+                subcategories.push(...additionalTitles);
             }
             for (let i = 0; i < subcategories.length; i++) {
                 await subcategories[i].click();
