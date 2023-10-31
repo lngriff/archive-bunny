@@ -24,7 +24,6 @@ export async function archiveScript(categories) {
             let prevPage = page.url();
             let subcategories = [];
             for (let category of categories) {
-                category = category.trim();
                 subcategories = await page.getByRole('link', { name: category }).all();
             }
             for (let i = 0; i < subcategories.length; i++) {
@@ -43,7 +42,6 @@ export async function archiveScript(categories) {
                     process.stdout.write(bunny.workingBunny);
                 }
 
-                // damn categories is still not working..
                 const curCategory = categories.find(val => 
                     (title.toLowerCase()).includes(val.toLowerCase())
                 );

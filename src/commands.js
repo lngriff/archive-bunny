@@ -39,7 +39,9 @@ export async function launch(){
     
     const categories = await askQuestion(rl, bunny.getNames);
     rl.close();
-    const split = categories.split(',');
+    const split = categories.split(',').map((cat) => {
+        return cat.trim();
+    });
 
     await archiveScript(split);
     process.stdout.write('Thanks for using Archive Bunny!');
