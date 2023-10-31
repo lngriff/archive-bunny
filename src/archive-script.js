@@ -59,7 +59,7 @@ export async function archiveScript(categories) {
                 }
                 await page.getByRole('link', { name: 'Read on Browser'}).click();
                 
-                for(let i = 1; i < pageCount; i++) {
+                for(let i = 1; i <= pageCount; i++) {
                     await clickNext(page, config.shortWait, i, `${config.mainFolder}${curCategory}/${title}/raws`, config.viewWindow);
                 }
 
