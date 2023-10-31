@@ -1,0 +1,20 @@
+{
+  "name": "archive-bunny",
+  "version": "1.0.0",
+  "description": "cli tool for archiving web content",
+  "exports": "./index.js",
+  "type": "module",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "fs": "^0.0.1-security",
+    "playwright": "^1.39.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.6"
+  },
+  "scripts": {},
+  "bin": {
+    "archbunny": "index.js"
+  }
+}
