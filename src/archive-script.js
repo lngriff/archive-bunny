@@ -105,7 +105,7 @@ async function clickNext(page, waitTime, pageNo, path, viewWindow) {
 
     const formattedPageNo = formatPageNumber(pageNo);
     await page.screenshot({ path: `${path}/${formattedPageNo}.png`, clip: viewWindow });
-    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press(`Arrow${config.scrollDir}`);
 }
 
 function makeFolders(mainFolder, category, subcategory) {

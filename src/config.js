@@ -7,6 +7,8 @@ export const config = {
         width: 540,
         height: 980,
     },
+    // essentially: which arrow key do you want to press to advance (Right, Left, Up, Down)
+    scrollDir: 'Right',
     debugPort: 9222,
     // waits in ms
     longWait: 5000,
