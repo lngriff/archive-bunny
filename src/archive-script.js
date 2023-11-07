@@ -132,7 +132,7 @@ function formatPageNumber(pageNo) {
 
 function formatTitle(title) {
     const split = title.split(' - ');
-    return split[0].trim();
+    return split[0].trim().replace(':', ' ');
 }
 
 // back to the starting page to do the next set of actions, built in wait
