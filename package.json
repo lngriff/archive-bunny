@@ -5,6 +5,7 @@
   "exports": "./index.js",
   "type": "module",
   "dependencies": {
+    "archiver": "^6.0.1",
     "commander": "^11.1.0",
     "fs": "^0.0.1-security",
     "playwright": "^1.39.0"

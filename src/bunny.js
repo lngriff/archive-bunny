@@ -37,13 +37,17 @@ export const workingBunny =
   _U _ U_______________
  |      Working!!      |   
  |_____________________|
-`;
+   `
+;
 
-export const gotOneBunny = 
-`  /)  /)
- (˶• ֊ •) .*. Archive get!! .*.
- /  7  7
-`;
+export function gotOneBunny(title) {
+    return `
+ /)  /)
+(˶• ֊ •) .*. Archive get!! .*.
+/  7  7
+        Copied ${title}
+`; 
+} 
 
 export const noMatchBunny = 
 ` /) /)
@@ -51,7 +55,11 @@ export const noMatchBunny =
 ( U  U)
 `;
 
-export const errorBunny = 
-` /) /)
+export function errorBunny(errorText) {
+    return `
+  /) /)
 ( ; _ ;) An error occurred.
-( U  U)`;
+( U  U)
+${errorText}
+`; 
+} 

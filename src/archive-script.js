@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import archiver from 'archiver';
 import * as fs from 'fs';
 import { config } from './config.js';
 import * as bunny from './bunny.js'
@@ -60,12 +61,18 @@ export async function archiveScript(categories) {
                 }
                 await page.getByRole('link', { name: 'Read on Browser'}).click();
                 
+                const path = `${config.mainFolder}${curCategory}/${title}` 
                 for(let i = 1; i <= pageCount; i++) {
-                    await clickNext(page, config.shortWait, i, `${config.mainFolder}${curCategory}/${title}/raws`, config.viewWindow);
+                    await clickNext(page, config.shortWait, i, `${path}/raws`, config.viewWindow);
+                }
+
+                if (config.archive) {
+                    const archiveName = `${title.toLowerCase().replace(/ /g,"_")}.${config.archiveType}` 
+                    generateArchive(path, archiveName)
                 }
 
                 if (config.bunnyOn) {
-                    process.stdout.write(bunny.gotOneBunny);
+                    process.stdout.write(bunny.gotOneBunny(title));
                 }
 
                 await reset(page, prevPage);
@@ -85,11 +92,13 @@ export async function archiveScript(categories) {
             process.exit();
         }
     } catch (e) {
-        process.stdout.write(bunny.errorBunny);
+        process.stdout.write(bunny.errorBunny(e.message));
         process.stderr.write(e.message);
         process.exit(1);
     }
-    process.stdout.write('All done!')
+
+    process.stdout.write('Archive process complete, thanks for waiting!')
+    process.exit();
 }
 
 const timer = ms => new Promise(res => setTimeout(res, ms));
@@ -106,6 +115,18 @@ async function clickNext(page, waitTime, pageNo, path, viewWindow) {
     const formattedPageNo = formatPageNumber(pageNo);
     await page.screenshot({ path: `${path}/${formattedPageNo}.png`, clip: viewWindow });
     await page.keyboard.press(`Arrow${config.scrollDir}`);
+}
+
+function generateArchive(path, archiveName) {
+    // path/raws
+    const output = fs.createWriteStream(`${path}/${archiveName}`);
+    const archive = archiver('zip');
+
+    archive.pipe(output);
+
+    archive.directory(`${path}/raws`);
+
+    archive.finalize();
 }
 
 function makeFolders(mainFolder, category, subcategory) {
